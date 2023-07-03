@@ -60,6 +60,18 @@ export default class Main extends Component {
     });
   };
 
+  componentDidMount() {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    if (!tasks) return;
+    this.setState({ tasks });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+    if (tasks === prevState.tasks) return;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
   render() {
     const { newTask, tasks } = this.state;
 
